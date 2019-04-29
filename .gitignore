@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+
+*.swp
+
+*.pyc
+*.pyd
+
+backend/.envrc
+backend/.venv
+backend/venv
+frontend/.cache
+frontend/node_modules
+frontend/public
