@@ -16,7 +16,7 @@ jobs:
             echo $GCLOUD_KEY_JSON > /home/circleci/.gcloud-key
             gcloud auth activate-service-account --key-file=/home/circleci/.gcloud-key
             gcloud config set project isnamyang
-            gcloud app deploy
+            gcloud -q app deploy app.yaml 
       - run:
           name: deploy frontend
           command: |
