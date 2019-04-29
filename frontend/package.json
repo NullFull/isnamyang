@@ -3,5 +3,17 @@
   "version": "0.0.1",
   "description": "Is Namyang?",
   "main": "index.js",
-  "author": "NullFull"
+  "author": "NullFull",
+  "scripts": {
+    "build": "gatsby build",
+    "deploy": "netlify deploy --prod -d public"
+  },
+  "dependencies": {
+    "gatsby": "^2.3.33",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "netlify-cli": "^2.11.15"
+  }
 }
