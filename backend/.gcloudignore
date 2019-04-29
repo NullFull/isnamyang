@@ -12,9 +12,11 @@
 # below:
 .git
 .gitignore
-venv
 
 # Python pycache:
 __pycache__/
 # Ignored by the build system
 /setup.cfg
+
+venv
+db.sqlite3

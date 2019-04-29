@@ -9,6 +9,7 @@
 backend/.envrc
 backend/.venv
 backend/venv
+backend/db.sqlite3
 frontend/.cache
 frontend/node_modules
 frontend/public
