@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gatsby": "^2.3.33",
+    "quagga": "^0.12.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
