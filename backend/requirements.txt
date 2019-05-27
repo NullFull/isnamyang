@@ -1,1 +1,2 @@
 Django==2.2
+django-cors-headers==3.0.1
