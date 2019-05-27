@@ -1,21 +1,40 @@
+import './index.styl'
 import React from 'react'
 import Quagga from 'quagga'
 
 
 class Index extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            detected: []
-        }
+    state = {
+        detected: '',
+        fetched: null
     }
 
-    _onDetect = data => {
-        let appended = this.state.detected.concat(data);
-        this.setState({
-            detected: appended
-        })
+    constructor(props) {
+        super(props)
+    }
+
+    _onDetect = async data => {
+        Quagga.stop()
+
+        try {
+            const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${data.codeResult.code}`)
+
+            if (response.status === 200) {
+                const json = await response.json()
+                this.setState({
+                    detected: data.codeResult.code,
+                    fetched: json
+                })
+            } else if (response.status === 404) {
+                this.setState({
+                    detected: data.codeResult.code,
+                    fetched: null
+                })
+            }
+        } catch (e) {
+            // TODO :
+            console.log(e)
+        }
     }
 
     componentDidMount() {
@@ -24,8 +43,8 @@ class Index extends React.Component {
                 name : "Live",
                 type : "LiveStream",
                 constraints: {
-                    width: 640,
-                    height: 640
+                    width: 360,
+                    height: 320
                 },
                 target: document.querySelector('#interactive')
             },
@@ -44,17 +63,30 @@ class Index extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Is Namyang?</h1>
-                <div>
-                    <ul>
-                    {this.state.detected.map(data => <li>
-                        {data.codeResult.code}
-                    </li>)}
-                    </ul>
-                </div>
-                <div>
-                    <div id="interactive" className="viewport"/>
+            <div className="app">
+                <h1>남양유없?</h1>
+                <div className="body">
+                {!this.state.detected ?
+                    <div>
+                        <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
+                        <div>
+                            <div id="interactive" className="viewport"/>
+                        </div>
+                    </div> : <>
+                        {this.state.fetched ?
+                            <div>
+                                <h2>이 제품은 남양 제품이</h2>
+                                <h1>맞습니다</h1>
+                                <p>{this.state.detected}</p>
+                            </div> :
+                            <div>
+                                <h2>이 제품은 남양 제품이</h2>
+                                <h1>아닙니다</h1>
+                                <p>{this.state.detected}</p>
+                            </div>
+                        }
+                    </>
+                }
                 </div>
             </div>
         )
