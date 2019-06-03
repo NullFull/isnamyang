@@ -1,91 +1,71 @@
 import './index.styl'
 import React from 'react'
-import Quagga from 'quagga'
+import {BrowserBarcodeReader} from '@zxing/library'
 
 
 class Index extends React.Component {
-    detected = []
+    reader = new BrowserBarcodeReader()
+
+    candidates = []
 
     state = {
         detected: '',
-        fetched: null
+        isNamyang: null,
+        itemInfo: null
     }
 
-    constructor(props) {
-        super(props)
-    }
-
-    _getFrequentlyDetected() {
+    _getMostFrequent(candidates) {
         const counts = {}
-        this.detected.forEach(code => {
+
+        candidates.forEach(code => {
             if (counts.hasOwnProperty(code)) {
-                counts[code] += 1
+                counts[code]++
             } else {
                 counts[code] = 1
             }
         })
 
-        let mostDetected
+        const countKeys = Object.keys(counts)
+        let mostFrequent = countKeys[0]
 
-        Object.keys(counts).forEach(code => {
-            if (!mostDetected) mostDetected = code
-            if (counts[code] >= counts[mostDetected]) {
-                mostDetected = code
-            }
+        countKeys.forEach(code => {
+            if (counts[code] >= counts[mostFrequent]) mostFrequent = code
         })
 
-        return mostDetected;
+        return mostFrequent
     }
 
-    async _fetchAnswer(code) {
+    async _isNamyang(code) {
         const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${code}`)
+        const result = response.status === 200
+        const info = response.status === 200 ? response.json() : {}
 
-        if (response.status === 200) {
-            const json = await response.json()
-            this.setState({
-                detected: code,
-                fetched: json
-            })
-        } else if (response.status === 404) {
-            this.setState({
-                detected: code,
-                fetched: null
-            })
-        }
+        return {result, info}
     }
 
     _onDetect = async data => {
-        this.detected.push(data.codeResult.code)
+        if (this.candidates.length < 10) {
+            this.candidates.push(data.text)
+            this._startDetect()
+        } else {
+            const code = this._getMostFrequent(this.candidates)
+            const {result, info} = await this._isNamyang(code)
 
-        if (this.detected.length === 20) {
-            Quagga.stop()
-            const code = this._getFrequentlyDetected()
-            await this._fetchAnswer(code)
+            this.setState({
+                detected: code,
+                isNamyang: result,
+                itemInfo: info
+            })
         }
     }
 
+    async _startDetect() {
+        const result = await this.reader.decodeFromInputVideoDevice(undefined, 'interactive')
+        this._onDetect(result)
+    }
+
     componentDidMount() {
-        Quagga.init({
-            inputStream : {
-                name : "Live",
-                type : "LiveStream",
-                constraints: {
-                    width: 360,
-                    height: 320
-                },
-                target: document.querySelector('#interactive')
-            },
-            decoder : {
-                readers : ["ean_reader"]
-            },
-            locate: true
-        }, function(err) {
-            if (err) {
-                return console.log(err);
-            }
-            Quagga.start();
-        });
-        Quagga.onDetected(this._onDetect)
+        this._startDetect()
     }
 
     render() {
@@ -97,19 +77,18 @@ class Index extends React.Component {
                     <div>
                         <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
                         <div>
-                            <div id="interactive" className="viewport"/>
+                            <video id="interactive" className="viewport"/>
                         </div>
                     </div> : <>
-                        {this.state.fetched ?
+                        {this.state.isNamyang ?
                             <div>
                                 <h2>이 제품은 남양 제품이</h2>
                                 <h1>맞습니다</h1>
-                                <p>{this.state.detected}</p>
+                                <p>{this.state.itemInfo['제품명']}</p>
                             </div> :
                             <div>
                                 <h2>이 제품은 남양 제품이</h2>
                                 <h1>아닙니다</h1>
-                                <p>{this.state.detected}</p>
                             </div>
                         }
                     </>
@@ -122,4 +101,3 @@ class Index extends React.Component {
 
 
 export default Index
-
