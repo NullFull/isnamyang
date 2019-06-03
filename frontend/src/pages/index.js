@@ -6,33 +6,10 @@ import {BrowserBarcodeReader} from '@zxing/library'
 class Index extends React.Component {
     reader = new BrowserBarcodeReader()
 
-    candidates = []
-
     state = {
         detected: '',
         isNamyang: null,
         itemInfo: null
-    }
-
-    _getMostFrequent(candidates) {
-        const counts = {}
-
-        candidates.forEach(code => {
-            if (counts.hasOwnProperty(code)) {
-                counts[code]++
-            } else {
-                counts[code] = 1
-            }
-        })
-
-        const countKeys = Object.keys(counts)
-        let mostFrequent = countKeys[0]
-
-        countKeys.forEach(code => {
-            if (counts[code] >= counts[mostFrequent]) mostFrequent = code
-        })
-
-        return mostFrequent
     }
 
     async _isNamyang(code) {
@@ -44,19 +21,14 @@ class Index extends React.Component {
     }
 
     _onDetect = async data => {
-        if (this.candidates.length < 10) {
-            this.candidates.push(data.text)
-            this._startDetect()
-        } else {
-            const code = this._getMostFrequent(this.candidates)
-            const {result, info} = await this._isNamyang(code)
+        const code = data.text
+        const {result, info} = await this._isNamyang(code)
 
-            this.setState({
-                detected: code,
-                isNamyang: result,
-                itemInfo: info
-            })
-        }
+        this.setState({
+            detected: code,
+            isNamyang: result,
+            itemInfo: info
+        })
     }
 
     async _startDetect() {
