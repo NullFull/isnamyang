@@ -6,7 +6,8 @@
   "author": "NullFull",
   "scripts": {
     "build": "gatsby build",
-    "deploy": "netlify deploy --prod -d public"
+    "deploy": "netlify deploy --prod -d public",
+    "dev": "gatsby develop"
   },
   "dependencies": {
     "gatsby": "^2.3.33",
