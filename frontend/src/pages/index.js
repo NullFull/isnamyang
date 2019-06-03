@@ -4,6 +4,8 @@ import Quagga from 'quagga'
 
 
 class Index extends React.Component {
+    detected = []
+
     state = {
         detected: '',
         fetched: null
@@ -13,27 +15,52 @@ class Index extends React.Component {
         super(props)
     }
 
-    _onDetect = async data => {
-        Quagga.stop()
-
-        try {
-            const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${data.codeResult.code}`)
-
-            if (response.status === 200) {
-                const json = await response.json()
-                this.setState({
-                    detected: data.codeResult.code,
-                    fetched: json
-                })
-            } else if (response.status === 404) {
-                this.setState({
-                    detected: data.codeResult.code,
-                    fetched: null
-                })
+    _getFrequentlyDetected() {
+        const counts = {}
+        this.detected.forEach(code => {
+            if (counts.hasOwnProperty(code)) {
+                counts[code] += 1
+            } else {
+                counts[code] = 1
             }
-        } catch (e) {
-            // TODO :
-            console.log(e)
+        })
+
+        let mostDetected
+
+        Object.keys(counts).forEach(code => {
+            if (!mostDetected) mostDetected = code
+            if (counts[code] >= counts[mostDetected]) {
+                mostDetected = code
+            }
+        })
+
+        return mostDetected;
+    }
+
+    async _fetchAnswer(code) {
+        const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${code}`)
+
+        if (response.status === 200) {
+            const json = await response.json()
+            this.setState({
+                detected: code,
+                fetched: json
+            })
+        } else if (response.status === 404) {
+            this.setState({
+                detected: code,
+                fetched: null
+            })
+        }
+    }
+
+    _onDetect = async data => {
+        this.detected.push(data.codeResult.code)
+
+        if (this.detected.length === 20) {
+            Quagga.stop()
+            const code = this._getFrequentlyDetected()
+            await this._fetchAnswer(code)
         }
     }
 
