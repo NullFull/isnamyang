@@ -61,6 +61,7 @@ class Index extends React.Component {
                             <div>
                                 <h2>이 제품은 남양 제품이</h2>
                                 <h1>아닙니다</h1>
+                                <p>{this.state.detected}</p>
                             </div>
                         }
                     </>
