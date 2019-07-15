@@ -1,21 +1,70 @@
-
 body
+  margin 0
   font-family sans-serif
-  font-size 16px
+  font-size 16px!important
+
+h1
+  font-size 1.5rem
 
 input
-  font-size 16px
+  font-size inherit
 
-.app
-  margin 0 auto
-  width 100%
+button
+  font-size inherit
+
+.wrapper
+  display flex
+  flex-direction column
   max-width 360px
+  min-height: 100vh
+  margin 0 auto
+
+.header
+  flex initial
+  padding 1rem 0
+
+.logo
+  padding 0.5rem
+
+.main
+  flex auto
+  display flex
+  flex-direction column
   text-align center
+  width 100%
+  height: 100%
+
+.result
+  dl
+    width 80%
+    margin 1rem auto
+    dt, dd
+      margin 0
+      text-align left
+    dt
+      font-size 0.8em
+
+.result__actions
+  display flex
+  justify-content space-between
+
+.emoji
+  font-size 2em
 
 #interactive
   position relative
-  height 360px
+  width: 90%
+
   canvas, video
     position absolute
     top 0
     left 0
+
+.footer
+  flex initial
+  padding 1rem 0
+
+  span
+    padding 0.5rem
+
+

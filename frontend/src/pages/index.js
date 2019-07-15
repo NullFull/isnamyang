@@ -59,6 +59,15 @@ class Index extends React.Component {
         this._onDetect(result)
     }
 
+    reset() {
+        this.setState({
+            entered: '',
+            detected: '',
+            isNamyang: null,
+            itemInfo: null,
+        })
+    }
+
     async componentDidMount() {
         try {
             await this._startDetect()
@@ -69,44 +78,66 @@ class Index extends React.Component {
 
     render() {
         return (
-            <div className="app">
-                <h1>남양유없?</h1>
-                <div className="body">
-                {!this.state.detected ?
-                    <div>
+            <div className="wrapper">
+                <header className="header">
+                    <span className="logo">
+                        <img src="" alt="남양유없?"/>
+                    </span>
+                </header>
+                <main className="main">
+                    {!this.state.detected ?
+                    <section className="search">
+                        <h1>남양 제품인지 확인해보세요</h1>
                         {this.state.streamUnsupported ?
                           <form onSubmit={this.handleSubmit.bind(this)}>
-                              <label>
-                                  바코드
-                                  <input type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)}/>
+                              <label htmlFor="barcode">바코드
+                                  <input id="barcode" type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
                               </label>
                               <button type="submit">찾기</button>
                           </form> :
-                          <>
+                          <div className="reader">
                               <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
-                              <div>
-                                  <video id="interactive" className="viewport"/>
-                              </div>
-                          </>
+                              <video id="interactive" className="viewport"/>
+                          </div>
                         }
-                    </div> : <>
+                    </section> :
+                    <section className="result">
                         {this.state.isNamyang ?
-                            <div>
-                                <h2>이 제품은 남양 제품이</h2>
-                                <h1>맞습니다</h1>
-                                <p>{this.state.itemInfo['제품명']}</p>
-                                <p><a href={this.getReportUrl(this.state.isNamyang, this.state.detected)}>오류 신고</a></p>
-                            </div> :
-                            <div>
-                                <h2>이 제품은 남양 제품이</h2>
-                                <h1>아닙니다</h1>
-                                <p>{this.state.detected}</p>
-                                <p><a href={this.getReportUrl(this.state.isNamyang, this.state.detected)}>오류 신고</a></p>
-                            </div>
+                            <>
+                                <p>
+                                    남양 제품이<strong> 맞습니다~ <span className="emoji">&#x1F389;</span></strong>
+                                </p>
+                                <dl>
+                                  <dt>제품명:</dt>
+                                  <dd>{this.state.itemInfo['제품명']}</dd>
+                                </dl>
+                            </> :
+                            <>
+                                <p>
+                                    남양 제품이
+                                    <strong> 아닙니다.. <span className="emoji">&#x1F625;</span></strong><br/>
+                                </p>
+                                <dl>
+                                    <dt>바코드:</dt>
+                                    <dd>{this.state.detected}</dd>
+                                </dl>
+                            </>
                         }
-                    </>
+                        <div className="result__actions">
+                            <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
+                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)}>오류 신고</a>
+                        </div>
+                    </section>
                 }
-                </div>
+                </main>
+                <footer className="footer">
+                    <span>
+                        <a href="https://github.com/NullFull/isnamyang">Github</a>
+                    </span>
+                    <span>
+                        <a href="https://www.facebook.com/groupnullfull">Null채움</a>
+                    </span>
+                </footer>
             </div>
         )
     }
