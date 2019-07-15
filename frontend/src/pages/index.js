@@ -12,9 +12,11 @@ class Index extends React.Component {
     reader = new BrowserBarcodeReader()
 
     state = {
+        entered: '',
         detected: '',
         isNamyang: null,
-        itemInfo: null
+        itemInfo: null,
+        streamUnsupported: false,
     }
 
     async _isNamyang(code) {
@@ -23,6 +25,23 @@ class Index extends React.Component {
         const info = response.status === 200 ? response.json() : {}
 
         return {result, info}
+    }
+
+    handleChange(event) {
+        this.setState({ entered: event.target.value })
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault()
+
+        const code = this.state.entered
+        const {result, info} = await this._isNamyang(code)
+
+        this.setState({
+            detected: code,
+            isNamyang: result,
+            itemInfo: info,
+        })
     }
 
     _onDetect = async data => {
@@ -41,8 +60,12 @@ class Index extends React.Component {
         this._onDetect(result)
     }
 
-    componentDidMount() {
-        this._startDetect()
+    async componentDidMount() {
+        try {
+            await this._startDetect()
+        } catch (error) {
+            this.setState({ streamUnsupported: true })
+        }
     }
 
     render() {
@@ -52,10 +75,21 @@ class Index extends React.Component {
                 <div className="body">
                 {!this.state.detected ?
                     <div>
-                        <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
-                        <div>
-                            <video id="interactive" className="viewport"/>
-                        </div>
+                        {this.state.streamUnsupported ?
+                          <form onSubmit={this.handleSubmit.bind(this)}>
+                              <label>
+                                  바코드
+                                  <input type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)}/>
+                              </label>
+                              <button type="submit">찾기</button>
+                          </form> :
+                          <>
+                              <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
+                              <div>
+                                  <video id="interactive" className="viewport"/>
+                              </div>
+                          </>
+                        }
                     </div> : <>
                         {this.state.isNamyang ?
                             <div>
