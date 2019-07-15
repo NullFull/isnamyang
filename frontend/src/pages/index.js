@@ -22,7 +22,7 @@ class Index extends React.Component {
     async _isNamyang(code) {
         const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${code}`)
         const result = response.status === 200
-        const info = response.status === 200 ? response.json() : {}
+        const info = response.status === 200 ? await response.json() : {}
 
         return {result, info}
     }
@@ -33,8 +33,12 @@ class Index extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault()
-
         const code = this.state.entered
+
+        await this.fetchResult(code);
+    }
+
+    async fetchResult(code) {
         const {result, info} = await this._isNamyang(code)
 
         this.setState({
@@ -46,13 +50,8 @@ class Index extends React.Component {
 
     _onDetect = async data => {
         const code = data.text
-        const {result, info} = await this._isNamyang(code)
 
-        this.setState({
-            detected: code,
-            isNamyang: result,
-            itemInfo: info
-        })
+        await this.fetchResult(code);
     }
 
     async _startDetect() {
