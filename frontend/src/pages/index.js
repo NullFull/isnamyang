@@ -1,7 +1,11 @@
 import './index.styl'
 import React from 'react'
 import {BrowserBarcodeReader} from '@zxing/library'
+import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
 
+const hint = new Map();
+hint.set(DecodeHintType.TRY_HARDER, true)
+hint.set(DecodeHintType.ASSUME_GS1, true)
 
 const REPORT_TYPE = {
     '남양임': '%EB%82%A8%EC%96%91%EC%9D%B8%EB%8D%B0+%EB%82%A8%EC%96%91%EC%9D%B4+%EC%95%84%EB%8B%88%EB%9D%BC%EA%B3%A0+%EB%96%A0%EC%9A%94',
@@ -9,7 +13,10 @@ const REPORT_TYPE = {
 }
 
 class Index extends React.Component {
-    reader = new BrowserBarcodeReader()
+    reader = new BrowserBarcodeReader(
+      500,
+      hint
+    )
 
     state = {
         entered: '',
