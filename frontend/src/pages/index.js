@@ -139,10 +139,14 @@ class Index extends React.Component {
                 </main>
                 <footer className="footer">
                     <span>
-                        <a href="https://github.com/NullFull/isnamyang">Github</a>
+                        <a href="https://github.com/NullFull/isnamyang" target="_blank">
+                            <img src="github-logo.png" alt="github" className="logo"/>
+                        </a>
                     </span>
                     <span>
-                        <a href="https://www.facebook.com/groupnullfull">Null채움</a>
+                        <a href="https://www.facebook.com/groupnullfull" target="_blank">
+                            <img src="nullfull-logo.svg" alt="Null채움" className="logo"/>
+                        </a>
                     </span>
                 </footer>
             </div>
