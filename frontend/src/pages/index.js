@@ -20,9 +20,9 @@ let confetti_config =
     angle: 90,
     spread: 290,
     startVelocity: 50,
-    elementCount: 100,
+    elementCount: 120,
     decay: 0.8,
-    delay: 3000,
+    delay: 4000,
     colors: confetti_colors
 }
 
