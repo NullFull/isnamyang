@@ -2,9 +2,9 @@ import './index.styl'
 import React from 'react'
 import {BrowserBarcodeReader} from '@zxing/library'
 import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
-import activeConfetti from './confetti.js'
+import activeConfetti from '../lib/confetti.js'
 
-let confetti_colors = [
+let confettiColors = [
     '#E68F17',
     '#FAB005',
     '#FA5252',
@@ -15,15 +15,14 @@ let confetti_colors = [
     '#EE1233',
     '#40C057'
 ];
-let confetti_config = 
-{
+let confettiConfig = {
     angle: 90,
     spread: 290,
     startVelocity: 50,
     elementCount: 120,
     decay: 0.8,
     delay: 4000,
-    colors: confetti_colors
+    colors: confettiColors
 }
 
 const hint = new Map();
@@ -76,8 +75,8 @@ class Index extends React.Component {
             isNamyang: result,
             itemInfo: info,
         })
-        let confetti_box = document.getElementsByClassName('confetti')[0];
-        activeConfetti(confetti_box, confetti_config);
+        let confettiBox = document.getElementsByClassName('confetti')[0];
+        activeConfetti(confettiBox, confettiConfig);
     }
 
     _onDetect = async data => {
@@ -141,8 +140,8 @@ class Index extends React.Component {
                                     남양 제품이<strong className="truth"> 맞습니다!</strong>
                                 </p>
                                 <dl>
-                                  <dt className="product_title">제품명:</dt>
-                                  <dd className="product_name">{this.state.itemInfo['제품명']}</dd>
+                                  <dt className="product-title">제품명:</dt>
+                                  <dd className="product-name">{this.state.itemInfo['제품명']}</dd>
                                 </dl>
                             </> :
                             <>
@@ -150,14 +149,14 @@ class Index extends React.Component {
                                     남양 제품이<strong className="truth"> 아닙니다!</strong>
                                 </p>
                                 <dl>
-                                    <dt className="barcode_title">바코드:</dt>
-                                    <dd className="barcode_info">{this.state.detected}</dd>
+                                    <dt className="barcode-title">바코드:</dt>
+                                    <dd className="barcode-info">{this.state.detected}</dd>
                                 </dl>
                             </>
                         }
                         <div className="result__actions">
                             <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
-                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report_link">오류 신고</a>
+                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report-link">오류 신고</a>
                         </div>
                     </section>
                 }
