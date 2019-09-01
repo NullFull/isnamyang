@@ -31,22 +31,73 @@ button
   display flex
   flex-direction column
   text-align center
-  width 100%
-  height: 100%
+  position relative
+
+.confetti
+  position absolute
+  left 50%
+  top 4rem
+  transform translateX(-50%)
+  z-index 1
 
 .result
+  position relative
+  z-index 2
+  box-shadow 0px 0px 15px #ddd
+  padding 1.3rem
+  background-color #fff
+  margin 3rem
+
+  .content
+    margin 0
+    padding 1rem
+    font-size 1.4rem
+    line-height 1.4
+    border-bottom 1px solid #ccc
+
+  .truth
+    display block
+
   dl
     width 80%
     margin 1rem auto
+    overflow hidden
+
     dt, dd
       margin 0
       text-align left
-    dt
-      font-size 0.8em
+
+  .product_title
+    float left
+
+  .product_name
+    padding-left 0.7rem
+    margin 0
+    overflow hidden
+    word-break keep-all
+
+  .barcode_title
+    display inline-block
+
+  .barcode_info
+    display inline-block
+    margin-left: 0.5em
+
 
 .result__actions
   display flex
   justify-content space-between
+
+  button
+    font-size 0.9rem
+    color #888
+    margin-top 3em
+
+  .report_link
+    font-size 0.9rem
+    color #888
+    margin-top 3rem
+    padding 1rem
 
 .emoji
   font-size 2em
@@ -69,5 +120,4 @@ button
 
 .logo
   height 1.5rem
-
-
+  

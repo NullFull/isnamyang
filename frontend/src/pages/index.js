@@ -2,6 +2,29 @@ import './index.styl'
 import React from 'react'
 import {BrowserBarcodeReader} from '@zxing/library'
 import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
+import activeConfetti from './confetti.js'
+
+let confetti_colors = [
+    '#E68F17',
+    '#FAB005',
+    '#FA5252',
+    '#E64980',
+    '#BE4BDB',
+    '#0B7285',
+    '#15AABF',
+    '#EE1233',
+    '#40C057'
+];
+let confetti_config = 
+{
+    angle: 90,
+    spread: 290,
+    startVelocity: 50,
+    elementCount: 120,
+    decay: 0.8,
+    delay: 4000,
+    colors: confetti_colors
+}
 
 const hint = new Map();
 hint.set(DecodeHintType.TRY_HARDER, true)
@@ -23,7 +46,7 @@ class Index extends React.Component {
         detected: '',
         isNamyang: null,
         itemInfo: null,
-        streamUnsupported: false,
+        streamUnsupported: false
     }
 
     async _isNamyang(code) {
@@ -53,6 +76,8 @@ class Index extends React.Component {
             isNamyang: result,
             itemInfo: info,
         })
+        let confetti_box = document.getElementsByClassName('confetti')[0];
+        activeConfetti(confetti_box, confetti_config);
     }
 
     _onDetect = async data => {
@@ -92,6 +117,7 @@ class Index extends React.Component {
                     </span>
                 </header>
                 <main className="main">
+                    <div className="confetti"></div>
                     {!this.state.detected ?
                     <section className="search">
                         <h1>남양 제품인지 확인해보세요</h1>
@@ -111,28 +137,27 @@ class Index extends React.Component {
                     <section className="result">
                         {this.state.isNamyang ?
                             <>
-                                <p>
-                                    남양 제품이<strong> 맞습니다~ <span className="emoji">&#x1F389;</span></strong>
+                                <p className="content">
+                                    남양 제품이<strong className="truth"> 맞습니다!</strong>
                                 </p>
                                 <dl>
-                                  <dt>제품명:</dt>
-                                  <dd>{this.state.itemInfo['제품명']}</dd>
+                                  <dt className="product_title">제품명:</dt>
+                                  <dd className="product_name">{this.state.itemInfo['제품명']}</dd>
                                 </dl>
                             </> :
                             <>
-                                <p>
-                                    남양 제품이
-                                    <strong> 아닙니다.. <span className="emoji">&#x1F625;</span></strong><br/>
+                                <p className="content">
+                                    남양 제품이<strong className="truth"> 아닙니다!</strong>
                                 </p>
                                 <dl>
-                                    <dt>바코드:</dt>
-                                    <dd>{this.state.detected}</dd>
+                                    <dt className="barcode_title">바코드:</dt>
+                                    <dd className="barcode_info">{this.state.detected}</dd>
                                 </dl>
                             </>
                         }
                         <div className="result__actions">
                             <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
-                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)}>오류 신고</a>
+                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report_link">오류 신고</a>
                         </div>
                     </section>
                 }
