@@ -112,11 +112,11 @@ class Index extends React.Component {
             <div className="wrapper">
                 <header className="header">
                     <span className="logo">
-                        <img src="" alt="남양유없?"/>
+                        <img src="isnamyang-logo.svg" alt="남양유없?"/>
                     </span>
                 </header>
                 <main className="main">
-                    <div className="confetti"></div>
+                    <div className="confetti" />
                     {!this.state.detected ?
                     <section className="search">
                         <h1>남양 제품인지 확인해보세요</h1>
@@ -136,25 +136,27 @@ class Index extends React.Component {
                     <section className="result">
                         {this.state.isNamyang ?
                             <>
-                                <p className="content">
-                                    남양 제품이<strong className="truth"> 맞습니다!</strong>
-                                </p>
+                                <div className="message">
+                                    <p>남양 제품이</p>
+                                    <p className="truth">맞습니다!</p>
+                                </div>
                                 <dl>
-                                  <dt className="product-title">제품명:</dt>
-                                  <dd className="product-name">{this.state.itemInfo['제품명']}</dd>
+                                    <dt className="product-title">제품명:</dt>
+                                    <dd className="product-name">{this.state.itemInfo['제품명']}</dd>
                                 </dl>
                             </> :
                             <>
-                                <p className="content">
-                                    남양 제품이<strong className="truth"> 아닙니다!</strong>
-                                </p>
+                                <div className="message">
+                                    <p>남양 제품이</p>
+                                    <p className="truth">아닙니다!</p>
+                                </div>
                                 <dl>
                                     <dt className="barcode-title">바코드:</dt>
                                     <dd className="barcode-info">{this.state.detected}</dd>
                                 </dl>
                             </>
                         }
-                        <div className="result__actions">
+                        <div className="actions">
                             <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
                             <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report-link">오류 신고</a>
                         </div>
@@ -162,6 +164,7 @@ class Index extends React.Component {
                 }
                 </main>
                 <footer className="footer">
+                    <div className="container">
                     <span>
                         <a href="https://github.com/NullFull/isnamyang" target="_blank">
                             <img src="github-logo.png" alt="github" className="logo"/>
@@ -172,6 +175,7 @@ class Index extends React.Component {
                             <img src="nullfull-logo.svg" alt="Null채움" className="logo"/>
                         </a>
                     </span>
+                    </div>
                 </footer>
             </div>
         )

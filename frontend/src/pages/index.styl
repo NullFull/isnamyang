@@ -1,37 +1,94 @@
+html, body, div
+  box-sizing border-box
+  margin 0
+  padding 0
+
+html
+  height 100%
+
 body
   margin 0
   font-family sans-serif
-  font-size 16px!important
+  font-size 16px
+  //height 100%
 
 h1
-  font-size 1.5rem
-
-input
-  font-size inherit
-
-button
-  font-size inherit
+  word-break keep-all
 
 .wrapper
-  display flex
-  flex-direction column
-  max-width 360px
-  min-height: 100vh
-  margin 0 auto
+  .header
+    margin-top 20px
+    .logo
+      img
+        width 100px
+        display block
+        margin 0 auto
+  .main
+    z-index 100
+    box-shadow 0 0 15px #ddd
+    padding 20px
+    max-width 360px
+    margin 20px auto
+    h1
+      text-align center
+    .search
+      text-align center
+    .result
+      .message
+        text-align center
+        font-size 1.4rem
+        border-bottom 1px solid #ccc
+        padding-bottom 20px
+        p
+          padding 4px
+          margin 0
+        .truth
+          font-weight bold
+      .actions
+        display flex
+        justify-content space-evenly
+        margin-top 5em
+        button
+          font-size 0.9rem
+          color #888
+          background-color #fff
+          border 0
+          margin 0
+          padding 0.5em
+        .report-link
+          font-size 0.9rem
+          color #888
+          padding 0.5em
+      dl
+        margin 1rem auto
+        overflow hidden
+        display flex
+        justify-content center
+        dd
+          margin-left 10px
 
-.header
-  flex initial
-  padding 1rem 0
 
-.logo
-  padding 0.5rem
-
-.main
-  flex auto
-  display flex
-  flex-direction column
-  text-align center
-  position relative
+    #interactive
+      width 100%
+      canvas, video
+        position absolute
+        top 0
+        left 0
+  .footer
+    position absolute
+    bottom 10px
+    width 100%
+    .container
+      display flex
+      justify-content center
+      align-items center
+      width 360px
+      margin 0 auto
+      span
+        flex 1 0 0
+        text-align center
+        img
+          height 30px
 
 .confetti
   position absolute
@@ -39,87 +96,3 @@ button
   top 4rem
   transform translateX(-50%)
   z-index 1
-
-.result
-  position relative
-  z-index 2
-  box-shadow 0px 0px 15px #ddd
-  padding 1.3rem
-  background-color #fff
-  margin 3rem
-
-  .content
-    margin 0
-    padding 1rem
-    font-size 1.4rem
-    line-height 1.4
-    border-bottom 1px solid #ccc
-
-  .truth
-    display block
-
-  dl
-    width 80%
-    margin 1rem auto
-    overflow hidden
-
-    dt, dd
-      margin 0
-      text-align left
-
-  .product-title
-    float left
-
-  .product-name
-    padding-left 0.7rem
-    margin 0
-    overflow hidden
-
-  .barcode-title
-    display inline-block
-
-  .barcode-info
-    display inline-block
-    margin-left 0.5em
-
-
-.result__actions
-  display flex
-  justify-content space-between
-  margin-top 5em
-
-  button
-    font-size 0.9rem
-    color #888
-    background-color #fff
-    border 0
-    margin 0
-    padding 0.5em
-
-  .report-link
-    font-size 0.9rem
-    color #888
-    padding 0.5em
-
-.emoji
-  font-size 2em
-
-#interactive
-  position relative
-  width: 90%
-
-  canvas, video
-    position absolute
-    top 0
-    left 0
-
-.footer
-  flex initial
-  padding 1rem 0
-
-  span
-    padding 0.5rem
-
-.logo
-  height 1.5rem
-  
