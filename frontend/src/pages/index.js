@@ -1,5 +1,6 @@
 import './index.styl'
 import React from 'react'
+import {Helmet} from 'react-helmet'
 import {BrowserBarcodeReader} from '@zxing/library'
 import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
 import activeConfetti from '../lib/confetti.js'
@@ -109,7 +110,10 @@ class Index extends React.Component {
 
     render() {
         return (
-            <div className="wrapper">
+            <div className="app">
+                <Helmet>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                </Helmet>
                 <header className="header">
                     <span className="logo">
                         <img src="isnamyang-logo.svg" alt="남양유없?"/>

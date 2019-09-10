@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-stylus`,
     {
       resolve: `gatsby-plugin-google-analytics`,
