@@ -51,6 +51,8 @@ class Index extends React.Component {
         streamNotSupported: false
     }
 
+    confettiBox = React.createRef()
+
     async _isNamyang(code) {
         const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${code}`)
         const result = response.status === 200
@@ -78,8 +80,7 @@ class Index extends React.Component {
             isNamyang: result,
             itemInfo: info
         }, () => {
-            let confettiBox = document.getElementsByClassName('confetti')[0];
-            activeConfetti(confettiBox, confettiConfig);
+            activeConfetti(this.confettiBox.current, confettiConfig)
         })
     }
 
@@ -123,10 +124,11 @@ class Index extends React.Component {
                 <header className="header">
                     <span className="logo">
                         <img src="isnamyang-logo.svg" alt="남양유없?"/>
+                        <div className="beta"><span>BETA</span></div>
                     </span>
                 </header>
                 <main className="main">
-                    <div className="confetti" />
+                    <div ref={this.confettiBox} className="confetti" />
                     {!detected ?
                     <section className="search">
                         <h1>남양 제품인지 확인해보세요</h1>
