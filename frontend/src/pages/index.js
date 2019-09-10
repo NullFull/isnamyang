@@ -39,8 +39,7 @@ const REPORT_TYPE = {
 
 class Index extends React.Component {
     reader = new BrowserBarcodeReader(
-        500,
-        hints
+        300
     )
 
     state = {
