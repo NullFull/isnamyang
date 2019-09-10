@@ -2,10 +2,11 @@ import './index.styl'
 import React from 'react'
 import {Helmet} from 'react-helmet'
 import {BrowserBarcodeReader} from '@zxing/library'
-import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
+import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType'
 import activeConfetti from '../lib/confetti.js'
 
-let confettiColors = [
+
+const confettiColors = [
     '#E68F17',
     '#FAB005',
     '#FA5252',
@@ -15,8 +16,8 @@ let confettiColors = [
     '#15AABF',
     '#EE1233',
     '#40C057'
-];
-let confettiConfig = {
+]
+const confettiConfig = {
     angle: 90,
     spread: 290,
     startVelocity: 50,
@@ -26,19 +27,20 @@ let confettiConfig = {
     colors: confettiColors
 }
 
-const hint = new Map();
-hint.set(DecodeHintType.TRY_HARDER, true)
-hint.set(DecodeHintType.ASSUME_GS1, true)
+const hints = new Map();
+hints.set(DecodeHintType.TRY_HARDER, true)
+hints.set(DecodeHintType.ASSUME_GS1, true)
 
 const REPORT_TYPE = {
     '남양임': '%EB%82%A8%EC%96%91%EC%9D%B8%EB%8D%B0+%EB%82%A8%EC%96%91%EC%9D%B4+%EC%95%84%EB%8B%88%EB%9D%BC%EA%B3%A0+%EB%96%A0%EC%9A%94',
     '남양아님': '%EB%82%A8%EC%96%91%EC%9D%B4+%EC%95%84%EB%8B%8C%EB%8D%B0+%EB%82%A8%EC%96%91%EC%9D%B4%EB%9D%BC%EA%B3%A0+%EB%96%A0%EC%9A%94'
 }
 
+
 class Index extends React.Component {
     reader = new BrowserBarcodeReader(
-      500,
-      hint
+        500,
+        hints
     )
 
     state = {
@@ -46,7 +48,7 @@ class Index extends React.Component {
         detected: '',
         isNamyang: null,
         itemInfo: null,
-        streamUnsupported: false
+        streamNotSupported: false
     }
 
     async _isNamyang(code) {
@@ -61,7 +63,7 @@ class Index extends React.Component {
         this.setState({ entered: event.target.value })
     }
 
-    async handleSubmit(event) {
+    handleSubmit = async event => {
         event.preventDefault()
         const code = this.state.entered
 
@@ -74,24 +76,24 @@ class Index extends React.Component {
         this.setState({
             detected: code,
             isNamyang: result,
-            itemInfo: info,
+            itemInfo: info
+        }, () => {
+            let confettiBox = document.getElementsByClassName('confetti')[0];
+            activeConfetti(confettiBox, confettiConfig);
         })
-        let confettiBox = document.getElementsByClassName('confetti')[0];
-        activeConfetti(confettiBox, confettiConfig);
     }
 
-    _onDetect = async data => {
+    onDetect = async data => {
         const code = data.text
-
         await this.fetchResult(code);
     }
 
-    async _startDetect() {
+    async startDetect() {
         const result = await this.reader.decodeFromInputVideoDevice(undefined, 'interactive')
-        this._onDetect(result)
+        this.onDetect(result)
     }
 
-    reset() {
+    reset = () => {
         this.setState({
             entered: '',
             detected: '',
@@ -102,13 +104,17 @@ class Index extends React.Component {
 
     async componentDidMount() {
         try {
-            await this._startDetect()
+            await this.startDetect()
         } catch (error) {
-            this.setState({ streamUnsupported: true })
+            this.setState({
+                streamUnsupported: true
+            })
         }
     }
 
     render() {
+        const {detected, streamNotSupported, isNamyang} = this.state
+
         return (
             <div className="app">
                 <Helmet>
@@ -121,11 +127,11 @@ class Index extends React.Component {
                 </header>
                 <main className="main">
                     <div className="confetti" />
-                    {!this.state.detected ?
+                    {!detected ?
                     <section className="search">
                         <h1>남양 제품인지 확인해보세요</h1>
-                        {this.state.streamUnsupported ?
-                          <form onSubmit={this.handleSubmit.bind(this)}>
+                        {streamNotSupported ?
+                          <form onSubmit={this.handleSubmit}>
                               <label htmlFor="barcode">바코드
                                   <input id="barcode" type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
                               </label>
@@ -138,7 +144,7 @@ class Index extends React.Component {
                         }
                     </section> :
                     <section className="result">
-                        {this.state.isNamyang ?
+                        {isNamyang ?
                             <>
                                 <div className="message">
                                     <p>남양 제품이</p>
@@ -156,19 +162,18 @@ class Index extends React.Component {
                                 </div>
                                 <dl>
                                     <dt className="barcode-title">바코드:</dt>
-                                    <dd className="barcode-info">{this.state.detected}</dd>
+                                    <dd className="barcode-info">{detected}</dd>
                                 </dl>
                             </>
                         }
                         <div className="actions">
-                            <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
-                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report-link">오류 신고</a>
+                            <button className="reset" type="button" onClick={this.reset}>다른 제품 찾기</button>
+                            <a className="report" href={this.getReportUrl(isNamyang, detected)}>오류 신고</a>
                         </div>
                     </section>
                 }
                 </main>
                 <footer className="footer">
-                    <div className="container">
                     <span>
                         <a href="https://github.com/NullFull/isnamyang" target="_blank">
                             <img src="github-logo.png" alt="github" className="logo"/>
@@ -179,7 +184,6 @@ class Index extends React.Component {
                             <img src="nullfull-logo.svg" alt="Null채움" className="logo"/>
                         </a>
                     </span>
-                    </div>
                 </footer>
             </div>
         )
