@@ -100,6 +100,8 @@ class Index extends React.Component {
             detected: '',
             isNamyang: null,
             itemInfo: null,
+        }, async () => {
+            await this.startDetect()
         })
     }
 
