@@ -1,5 +1,7 @@
 # isnamyang
 
+[![CircleCI](https://circleci.com/gh/NullFull/isnamyang.svg?style=svg)](https://circleci.com/gh/NullFull/isnamyang)
+
 ## 남양유없 오픈까지 할 일:
 - [x] 구글 폼을 제출해서 오류 신고할 수 있어야
   - [x] 구글폼 신고 오면 슬랙에 알림 오도록
