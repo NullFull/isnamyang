@@ -81,6 +81,8 @@ class Index extends React.Component {
         }, () => {
             activeConfetti(this.confettiBox.current, confettiConfig)
         })
+
+        window.ga && window.ga('send', 'event', 'Barcode', 'search', code)
     }
 
     onDetect = async data => {
