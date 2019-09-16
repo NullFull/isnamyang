@@ -83,6 +83,7 @@ class Index extends React.Component {
         })
 
         window.ga && window.ga('send', 'event', 'Barcode', 'search', code)
+        window.ga && window.ga('send', 'pageview', '/api/isnamyang?barcode=' + code)
     }
 
     onDetect = async data => {
