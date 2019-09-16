@@ -1,10 +1,12 @@
 import './index.styl'
 import React from 'react'
+import {Helmet} from 'react-helmet'
 import {BrowserBarcodeReader} from '@zxing/library'
-import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType';
+import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType'
 import activeConfetti from '../lib/confetti.js'
 
-let confettiColors = [
+
+const confettiColors = [
     '#E68F17',
     '#FAB005',
     '#FA5252',
@@ -14,8 +16,8 @@ let confettiColors = [
     '#15AABF',
     '#EE1233',
     '#40C057'
-];
-let confettiConfig = {
+]
+const confettiConfig = {
     angle: 90,
     spread: 290,
     startVelocity: 50,
@@ -25,19 +27,19 @@ let confettiConfig = {
     colors: confettiColors
 }
 
-const hint = new Map();
-hint.set(DecodeHintType.TRY_HARDER, true)
-hint.set(DecodeHintType.ASSUME_GS1, true)
+const hints = new Map();
+hints.set(DecodeHintType.TRY_HARDER, true)
+hints.set(DecodeHintType.ASSUME_GS1, true)
 
 const REPORT_TYPE = {
     '남양임': '%EB%82%A8%EC%96%91%EC%9D%B8%EB%8D%B0+%EB%82%A8%EC%96%91%EC%9D%B4+%EC%95%84%EB%8B%88%EB%9D%BC%EA%B3%A0+%EB%96%A0%EC%9A%94',
     '남양아님': '%EB%82%A8%EC%96%91%EC%9D%B4+%EC%95%84%EB%8B%8C%EB%8D%B0+%EB%82%A8%EC%96%91%EC%9D%B4%EB%9D%BC%EA%B3%A0+%EB%96%A0%EC%9A%94'
 }
 
+
 class Index extends React.Component {
     reader = new BrowserBarcodeReader(
-      500,
-      hint
+        300
     )
 
     state = {
@@ -45,8 +47,10 @@ class Index extends React.Component {
         detected: '',
         isNamyang: null,
         itemInfo: null,
-        streamUnsupported: false
+        streamNotSupported: false
     }
+
+    confettiBox = React.createRef()
 
     async _isNamyang(code) {
         const response = await fetch(`https://isnamyang.appspot.com/api/isnamyang?barcode=${code}`)
@@ -60,7 +64,7 @@ class Index extends React.Component {
         this.setState({ entered: event.target.value })
     }
 
-    async handleSubmit(event) {
+    handleSubmit = async event => {
         event.preventDefault()
         const code = this.state.entered
 
@@ -73,59 +77,70 @@ class Index extends React.Component {
         this.setState({
             detected: code,
             isNamyang: result,
-            itemInfo: info,
+            itemInfo: info
+        }, () => {
+            activeConfetti(this.confettiBox.current, confettiConfig)
         })
-        let confettiBox = document.getElementsByClassName('confetti')[0];
-        activeConfetti(confettiBox, confettiConfig);
+
+        window.ga && window.ga('send', 'event', 'Barcode', 'search', code)
     }
 
-    _onDetect = async data => {
+    onDetect = async data => {
         const code = data.text
-
         await this.fetchResult(code);
     }
 
-    async _startDetect() {
+    async startDetect() {
         const result = await this.reader.decodeFromInputVideoDevice(undefined, 'interactive')
-        this._onDetect(result)
+        this.onDetect(result)
     }
 
-    reset() {
+    reset = () => {
         this.setState({
             entered: '',
             detected: '',
             isNamyang: null,
             itemInfo: null,
+        }, async () => {
+            await this.startDetect()
         })
     }
 
     async componentDidMount() {
         try {
-            await this._startDetect()
+            await this.startDetect()
         } catch (error) {
-            this.setState({ streamUnsupported: true })
+            this.setState({
+                streamNotSupported: true
+            })
         }
     }
 
     render() {
+        const {detected, streamNotSupported, isNamyang} = this.state
+
         return (
-            <div className="wrapper">
+            <div className="app">
+                <Helmet>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                </Helmet>
                 <header className="header">
                     <span className="logo">
                         <img src="isnamyang-logo.svg" alt="남양유없?"/>
+                        <div className="beta"><span>BETA</span></div>
                     </span>
                 </header>
                 <main className="main">
-                    <div className="confetti" />
-                    {!this.state.detected ?
+                    <div ref={this.confettiBox} className="confetti" />
+                    {!detected ?
                     <section className="search">
                         <h1>남양 제품인지 확인해보세요</h1>
-                        {this.state.streamUnsupported ?
-                          <form onSubmit={this.handleSubmit.bind(this)}>
+                        {streamNotSupported ?
+                          <form onSubmit={this.handleSubmit}>
                               <label htmlFor="barcode">바코드
                                   <input id="barcode" type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
                               </label>
-                              <button type="submit">찾기</button>
+                              <button type="submit" className="submit-btn">찾기</button>
                           </form> :
                           <div className="reader">
                               <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
@@ -134,7 +149,7 @@ class Index extends React.Component {
                         }
                     </section> :
                     <section className="result">
-                        {this.state.isNamyang ?
+                        {isNamyang ?
                             <>
                                 <div className="message">
                                     <p>남양 제품이</p>
@@ -152,19 +167,18 @@ class Index extends React.Component {
                                 </div>
                                 <dl>
                                     <dt className="barcode-title">바코드:</dt>
-                                    <dd className="barcode-info">{this.state.detected}</dd>
+                                    <dd className="barcode-info">{detected}</dd>
                                 </dl>
                             </>
                         }
                         <div className="actions">
-                            <button type="button" onClick={this.reset.bind(this)}>다른 제품 찾기</button>
-                            <a href={this.getReportUrl(this.state.isNamyang, this.state.detected)} className="report-link">오류 신고</a>
+                            <button className="reset" type="button" onClick={this.reset}>다른 제품 찾기</button>
+                            <a className="report" href={this.getReportUrl(isNamyang, detected)}>오류 신고</a>
                         </div>
                     </section>
                 }
                 </main>
                 <footer className="footer">
-                    <div className="container">
                     <span>
                         <a href="https://github.com/NullFull/isnamyang" target="_blank">
                             <img src="github-logo.png" alt="github" className="logo"/>
@@ -175,7 +189,6 @@ class Index extends React.Component {
                             <img src="nullfull-logo.svg" alt="Null채움" className="logo"/>
                         </a>
                     </span>
-                    </div>
                 </footer>
             </div>
         )

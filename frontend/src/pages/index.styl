@@ -1,29 +1,48 @@
-html, body, div
+html, body, div, header, main, footer, button
   box-sizing border-box
   margin 0
   padding 0
+  border 0
 
 html
   height 100%
 
 body
-  margin 0
   font-family sans-serif
   font-size 16px
-  //height 100%
+  height 100%
 
 h1
   word-break keep-all
 
-.wrapper
-  .header
-    margin-top 20px
+.app
+  padding 10px
+  width 100%
+  height 100vh
+  display flex
+  flex-direction column
+
+  header.header
+    padding-top 20px
+    display flex
+    justify-content center
     .logo
+      position relative
       img
-        width 100px
         display block
-        margin 0 auto
-  .main
+        width 100px
+      .beta
+        position absolute
+        background #EE3A24
+        color white
+        padding 4px
+        font-size 12px
+        top -10px
+        right -30px
+        transform rotate(20deg)
+
+  main.main
+    position relative
     z-index 100
     box-shadow 0 0 15px #ddd
     padding 20px
@@ -48,47 +67,52 @@ h1
         display flex
         justify-content space-evenly
         margin-top 5em
-        button
-          font-size 0.9rem
-          color #888
+        font-size 0.9rem
+        color #888
+        .reset
           background-color #fff
-          border 0
-          margin 0
           padding 0.5em
-        .report-link
-          font-size 0.9rem
-          color #888
+          font-size 14px
+        .report
           padding 0.5em
+          font-size 14px
       dl
+        word-break keep-all
         margin 1rem auto
         overflow hidden
         display flex
         justify-content center
         dd
           margin-left 10px
+    #barcode
+        padding 8px
+        border 1px solid #888
+        box-sizing border-box
+        margin-left 6px
+    .submit-btn
+        margin-left 6px
+        padding 8px 12px
+        font-size 0.8rem
+        background-color #fff
+        border 1px solid #888
+        border-radius 12px
 
+  footer.footer
+    margin-top auto
+    display flex
+    justify-content center
+    span
+      width 100px
+      text-align center
+      img
+        height 30px
 
-    #interactive
-      width 100%
-      canvas, video
-        position absolute
-        top 0
-        left 0
-  .footer
+#interactive
+  width 100%
+  canvas, video
     position absolute
-    bottom 10px
-    width 100%
-    .container
-      display flex
-      justify-content center
-      align-items center
-      width 360px
-      margin 0 auto
-      span
-        flex 1 0 0
-        text-align center
-        img
-          height 30px
+    top 0
+    left 0
 
 .confetti
   position absolute
