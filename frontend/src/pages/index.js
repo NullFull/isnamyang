@@ -173,7 +173,7 @@ class Index extends React.Component {
                         }
                         <div className="actions">
                             <button className="reset" type="button" onClick={this.reset}>다른 제품 찾기</button>
-                            <a className="report" href={this.getReportUrl(isNamyang, detected)}>오류 신고</a>
+                            <a className="report" href={this.getReportUrl(isNamyang, detected)} target="_blank">오류 신고</a>
                         </div>
                     </section>
                 }
