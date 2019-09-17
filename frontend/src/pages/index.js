@@ -140,7 +140,7 @@ class Index extends React.Component {
                               <label htmlFor="barcode">바코드
                                   <input id="barcode" type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
                               </label>
-                              <button type="submit" className="submit-btn">찾기</button>
+                              <button type="submit" className="submit-btn" disabled={this.state.entered.length < 13}>찾기</button>
                           </form> :
                           <div className="reader">
                               <p>아래 화면에 바코드가 나오도록 비춰주세요</p>
