@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet'
 import {BrowserBarcodeReader} from '@zxing/library'
 import DecodeHintType from '@zxing/library/esm5/core/DecodeHintType'
 import activeConfetti from '../lib/confetti.js'
+import { setWebAppManifest } from '../lib/dynamicMenifest';
 
 
 const confettiColors = [
@@ -107,6 +108,13 @@ class Index extends React.Component {
     }
 
     async componentDidMount() {
+        setTimeout(() => {
+            setWebAppManifest({
+                userAgent: navigator.userAgent,
+                selector: '#dynamic-manifest'
+            })
+        }, 1)
+
         try {
             await this.startDetect()
         } catch (error) {
@@ -122,7 +130,17 @@ class Index extends React.Component {
         return (
             <div className="app">
                 <Helmet>
+                    <title>남양유없</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <link rel="manifest" id="dynamic-manifest" />
+                    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png" />
+                    <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png" />
+                    <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128.png" />
+                    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png" />
+                    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+                    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
+                    <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png" />
+                    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png" />
                 </Helmet>
                 <header className="header">
                     <span className="logo">
