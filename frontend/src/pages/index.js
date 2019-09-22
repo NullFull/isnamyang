@@ -132,6 +132,12 @@ class Index extends React.Component {
                 <Helmet>
                     <title>남양유없</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <meta property="og:url" content="https://isnamyang.nullfull.kr" />
+                    <meta property="og:type" content="website" />
+                    <meta property="og:title" content="남양유없 | 널채움(nullfull)" />
+                    <meta property="og:description" content="바코드만 찍으면 남양의 손길이 닿은 제품인지 알 수 있는 남양유없입니다! " />
+                    <meta property="og:image" content="https://isnamyang.nullfull.kr/isnamyang-logo.svg" />
+                    <meta property="og:locale" content="ko_KR" />
                     <link rel="manifest" id="dynamic-manifest" />
                     <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png" />
                     <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png" />
