@@ -131,6 +131,8 @@ class Index extends React.Component {
             <div className="app">
                 <Helmet>
                     <title>남양유없</title>
+                    <meta charSet="utf-8" />
+                    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
                     <meta property="og:url" content="https://isnamyang.nullfull.kr" />
                     <meta property="og:type" content="website" />
