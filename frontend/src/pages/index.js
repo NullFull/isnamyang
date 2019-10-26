@@ -134,6 +134,7 @@ class Index extends React.Component {
                     <meta charSet="utf-8" />
                     <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <meta name="description" content="(베타)남양 브랜드 로고가 보이지 않는 제품이 남양의 손길이 닿은 제품인지 알아볼 수 있도록 도와줍니다. https://github.com/NullFull/isnamyang/issues 에서 프로젝트에 기여할 수 있습니다." />
                     <meta property="og:url" content="https://isnamyang.nullfull.kr" />
                     <meta property="og:type" content="website" />
                     <meta property="og:title" content="남양유없 | 널채움(nullfull)" />
