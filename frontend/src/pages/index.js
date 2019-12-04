@@ -142,14 +142,14 @@ class Index extends React.Component {
                     <meta property="og:image" content="https://isnamyang.nullfull.kr/isnamyang-logo.png" />
                     <meta property="og:locale" content="ko_KR" />
                     <link rel="manifest" id="dynamic-manifest" />
-                    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png" />
-                    <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png" />
-                    <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128.png" />
-                    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png" />
-                    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
-                    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
-                    <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png" />
-                    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png" />
+                    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72-white.png" />
+                    <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96-white.png" />
+                    <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128-white.png" />
+                    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144-white.png" />
+                    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152-white.png" />
+                    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192-white.png" />
+                    <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384-white.png" />
+                    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512-white.png" />
                 </Helmet>
                 <header className="header">
                     <span className="logo">
