@@ -3,7 +3,9 @@ on: [push]
 jobs:
   frontend:
     name: frontend
-    runs-on: lexifdev/circleci-python3-node-gcloud
+    runs-on: ubuntu-latest
+    container:
+      image: lexifdev/circleci-python3-node-gcloud
     steps:
       - uses: actions/checkout@v1
       - run: |
