@@ -1,0 +1,13 @@
+name: deploy
+on: [push]
+jobs:
+  frontend:
+    name: frontend
+    runs-on: lexifdev/circleci-python3-node-gcloud
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          cd frontend
+          yarn install
+          yarn run build
+          yarn run deploy
