@@ -4,10 +4,9 @@ jobs:
   frontend:
     name: frontend
     runs-on: ubuntu-latest
-    container:
-      image: lexifdev/circleci-python3-node-gcloud
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
       - run: |
           cd frontend
           yarn install
