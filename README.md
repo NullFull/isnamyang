@@ -1,6 +1,6 @@
 # isnamyang
 
-[![](https://github.com/nullfull/isnamyang/workflows/deploy/badge.svg)
+![](https://github.com/nullfull/isnamyang/workflows/deploy/badge.svg)
 
 ## TODO:
 - [ ] 데이터 정리(제품명의 구분기호, 특수문자 없애기 / 제조만 한 상품 추가하기)
