@@ -1,0 +1,18 @@
+name: check-new-report
+on:
+  schedule:
+    - cron: '* 0,9 * * 1-5'
+    - cron: '*/15 * * * *'
+jobs:
+  frontend:
+    name: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+        run: |
+          cd frontend
+          yarn install
+          yarn run check-new-report

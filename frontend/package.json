@@ -7,7 +7,8 @@
   "scripts": {
     "build": "gatsby build",
     "deploy": "netlify deploy --prod -d public",
-    "dev": "gatsby develop"
+    "dev": "gatsby develop",
+    "check-new-report": "node scripts/checkNewReport.js"
   },
   "dependencies": {
     "@zxing/library": "^0.13.0",
@@ -29,6 +30,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
+    "isomorphic-unfetch": "^3.0.0",
     "netlify-cli": "^2.11.15"
   },
   "resolutions": {
