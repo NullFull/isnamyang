@@ -2,10 +2,9 @@ name: check-new-report
 on:
   schedule:
     - cron: '* 0,9 * * 1-5'
-    - cron: '*/15 * * * *'
 jobs:
-  frontend:
-    name: frontend
+  check-new-report:
+    name: check-new-report
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
