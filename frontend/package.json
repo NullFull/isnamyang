@@ -11,6 +11,7 @@
     "check-new-report": "node scripts/checkNewReport.js"
   },
   "dependencies": {
+    "@slack/web-api": "^5.10.0",
     "@zxing/library": "^0.13.0",
     "gatsby": "^2.15.11",
     "gatsby-plugin-google-analytics": "^2.1.1",
@@ -18,6 +19,8 @@
     "gatsby-plugin-offline": "^3.0.4",
     "gatsby-plugin-react-helmet": "^3.1.7",
     "gatsby-plugin-stylus": "^2.0.7",
+    "isomorphic-unfetch": "^3.0.0",
+    "papaparse": "^5.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1"
@@ -30,7 +33,6 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
-    "isomorphic-unfetch": "^3.0.0",
     "netlify-cli": "^2.11.15"
   },
   "resolutions": {
