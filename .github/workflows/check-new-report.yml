@@ -1,7 +1,7 @@
 name: check-new-report
 on:
   schedule:
-    - cron: '0 0,9 * * 1-5'
+    - cron: '0 1 * * *'
 jobs:
   check-new-report:
     name: check-new-report
