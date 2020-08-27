@@ -34,10 +34,5 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
     "netlify-cli": "^2.11.15"
-  },
-  "resolutions": {
-    "**/**/lodash": "^4.17.13",
-    "**/**/lodash.merge": "^4.6.2",
-    "**/**/lodash.template": "^4.5.0"
   }
 }
