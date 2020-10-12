@@ -165,7 +165,7 @@ class Index extends React.Component {
                         {streamNotSupported ?
                           <form onSubmit={this.handleSubmit}>
                               <label htmlFor="barcode">바코드
-                                  <input id="barcode" type="tel" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
+                                  <input id="barcode" type="text" pattern="[0-9]*" maxLength="13" value={this.state.entered} onChange={this.handleChange.bind(this)} placeholder="8801069173603"/>
                               </label>
                               <button type="submit" className="submit-btn" disabled={this.state.entered.length < 13}>찾기</button>
                           </form> :
