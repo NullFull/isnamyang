@@ -11,6 +11,9 @@ next(reader)
 
 products = {}
 for row in reader:
+    if not row:
+        continue
+
     products[row[0]] = {
         '바코드': row[0],
         '브랜드': row[1],
