@@ -19,12 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7.x'
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '291.0.0'
           project_id: isnamyang
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
+      - run: |
+          cd backend
+          pip install -r requirements.txt
+          python manage.py test
       - run: |
           cd backend
           gcloud -q app deploy app.yaml
