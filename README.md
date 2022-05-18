@@ -2,6 +2,10 @@
 
 ![](https://github.com/nullfull/isnamyang/workflows/deploy/badge.svg)
 
+
+- 남양유없 사이트 : https://isnamyang.nullfull.kr/
+- 안드로이드 어플 다운로드 : <a href="https://play.google.com/store/apps/details?id=kr.nullfull.isnamyang"><img src="https://user-images.githubusercontent.com/721157/98793036-aa672b80-244a-11eb-8a3e-4d422cd86d92.png" alt="Download google play store" height="50"/></a>
+
 ## TODO:
 - [ ] 데이터 정리(제품명의 구분기호, 특수문자 없애기 / 제조만 한 상품 추가하기)
 - [ ] 신고 데이터의 (반)자동 반영
