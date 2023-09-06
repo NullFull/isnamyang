@@ -7,10 +7,10 @@ jobs:
     name: check-new-report
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
       - env:
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
           cd frontend
           yarn install
