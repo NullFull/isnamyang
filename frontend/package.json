@@ -13,6 +13,7 @@
   "dependencies": {
     "@slack/web-api": "^5.10.0",
     "@zxing/library": "^0.13.0",
+    "discord.js": "^14.13.0",
     "gatsby": "^2.15.11",
     "gatsby-plugin-google-analytics": "^2.1.1",
     "gatsby-plugin-manifest": "^2.2.15",
