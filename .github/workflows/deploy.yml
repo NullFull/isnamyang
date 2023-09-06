@@ -22,9 +22,9 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.7.x'
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@v1
         with:
-          version: '291.0.0'
+          version: '>= 363.0.0'
           project_id: isnamyang
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
