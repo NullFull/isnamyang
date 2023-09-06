@@ -11,29 +11,29 @@
     "check-new-report": "node scripts/checkNewReport.js"
   },
   "dependencies": {
-    "@slack/web-api": "^5.10.0",
+    "@slack/web-api": "^6.9.0",
     "@zxing/library": "^0.13.0",
     "discord.js": "^14.13.0",
-    "gatsby": "^2.15.11",
-    "gatsby-plugin-google-analytics": "^2.1.1",
-    "gatsby-plugin-manifest": "^2.2.15",
-    "gatsby-plugin-offline": "^3.0.4",
-    "gatsby-plugin-react-helmet": "^3.1.7",
-    "gatsby-plugin-stylus": "^2.0.7",
-    "isomorphic-unfetch": "^3.0.0",
+    "gatsby": "^5.12.4",
+    "gatsby-plugin-google-analytics": "^5.12.0",
+    "gatsby-plugin-manifest": "^5.12.0",
+    "gatsby-plugin-offline": "^6.12.0",
+    "gatsby-plugin-react-helmet": "^6.12.0",
+    "gatsby-plugin-stylus": "^5.12.0",
+    "isomorphic-unfetch": "^4.0.2",
     "papaparse": "^5.2.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-standard": "^12.0.0",
+    "eslint": "^8.48.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^5.0.0",
     "netlify-cli": "^16.3.1"
   }
 }
